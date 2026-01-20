@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/auth/services/auth-service';
 import { Router } from '@angular/router';
-import { Credentials } from '../../../core/auth/credentials';
+import { Credentials } from '../../../core/auth/interfaces/credentials';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -23,7 +23,7 @@ export class Login {
         password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    login() {
+    protected login() {
         if (this.loginForm.invalid) {
             this.errorMessage.set('Please fill in all fields.');
             return;
@@ -31,17 +31,21 @@ export class Login {
 
         const formData: Credentials = this.loginForm.value as Credentials;
         this.authService.login(formData)
-        // .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-            next: (jwt) => {
-                if (jwt) {
-                    localStorage.setItem("Jwt", jwt.access_token);
-                    this.router.navigate(['/']);
+            // .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (jwt) => {
+                    if (jwt) {
+                        console.log("navigate");
+                        this.router.navigate(['/tasks']);
+                    }
+                },
+                error: (error) => {
+                    this.errorMessage.set(error.error.message);
                 }
-            },
-            error: (error) => {
-                this.errorMessage.set(error.error.message);
-            }
-        });
+            });
+    }
+
+    protected redirectToRegister() {
+        this.router.navigate(['/register']);
     }
 }

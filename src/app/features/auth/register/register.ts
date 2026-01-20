@@ -1,9 +1,10 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { AuthService } from '../../../core/auth/services/auth-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Credentials } from '../../../core/auth/credentials';
+import { Credentials } from '../../../core/auth/interfaces/credentials';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Header } from '../../../shared/header/header';
 
 @Component({
     selector: 'app-register',
@@ -23,7 +24,7 @@ export class Register {
         password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    register() {
+    protected register() {
         if (this.registerForm.invalid) {
             this.errorMessage.set('Please fill in all fields.');
             return;
@@ -42,5 +43,9 @@ export class Register {
                 this.errorMessage.set(error.error.message);
             }
         });
+    }
+
+    protected redirectToLogin() {
+        this.router.navigate(['/login']);
     }
 }
