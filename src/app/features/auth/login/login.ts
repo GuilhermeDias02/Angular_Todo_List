@@ -35,7 +35,6 @@ export class Login {
             .subscribe({
                 next: (jwt) => {
                     if (jwt) {
-                        console.log("navigate");
                         this.router.navigate(['/tasks']);
                     }
                 },

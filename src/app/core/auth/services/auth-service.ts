@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Credentials } from '../interfaces/credentials';
 import { Observable, tap } from 'rxjs';
-import { User } from '../interfaces/user';
+import { Role, User } from '../interfaces/user';
 import { environment } from '../../../../environments/environment';
 import { Jwt } from '../interfaces/jwt';
 import { jwtDecode } from 'jwt-decode';
@@ -63,5 +63,15 @@ export class AuthService {
 
     isLoggedIn() {
         return this.currentUser() === null ? false : true;
+    }
+
+    isAdmin() {
+        const decodedUser = this.getUserFromStorage();
+
+        if (decodedUser && decodedUser.role) {
+            return decodedUser.role == Role.ADMIN ? true : false;
+        }
+
+        return false;
     }
 }
