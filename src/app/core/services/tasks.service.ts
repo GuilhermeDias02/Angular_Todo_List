@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { Task } from '../../shared/models/task.model';
+import { Task } from '../task/interfaces/task';
+
 
 const STORAGE_KEY = 'tasks';
 
@@ -43,15 +44,15 @@ export class TasksService {
   this.setAll(next);
   }
 
-  remove(id: string): void {
+  remove(id: number): void {
   const next = this._tasks().filter(t => t.id !== id);
   this.setAll(next);
   }
 
-  update(id: string, patch: Partial<Task>): void {
+  update(id: number, patch: Partial<Task>): void {
   const next = this._tasks().map(t =>
     t.id === id
-      ? { ...t, ...patch, updatedAt: new Date().toISOString() }
+      ? { ...t, ...patch, updatedAt: new Date() }
       : t
   );
   this.setAll(next);

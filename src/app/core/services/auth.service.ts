@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { User } from '../../shared/models/task.model';
+import { User } from '../auth/interfaces/user';
+
 
 const USER_KEY = 'current_user';
 
