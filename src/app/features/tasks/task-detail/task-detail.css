@@ -1,4 +1,3 @@
-/* Animations et styles personnalisés */
 :host {
     display: block;
     min-height: 100vh;
@@ -6,7 +5,6 @@
     padding: 1rem 0;
 }
 
-/* Animation du spinner */
 @keyframes spin {
     to {
         transform: rotate(360deg);
