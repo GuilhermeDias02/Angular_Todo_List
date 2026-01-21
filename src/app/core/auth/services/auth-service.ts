@@ -66,6 +66,8 @@ export class AuthService {
     }
 
     isAdmin() {
+        if (!this.isLoggedIn) return false;
+
         const decodedUser = this.getUserFromStorage();
 
         if (decodedUser && decodedUser.role) {

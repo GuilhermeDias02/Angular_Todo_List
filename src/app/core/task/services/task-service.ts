@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { CreateTask, Task, TaskStatus } from '../interfaces/task';
 import { Observable } from 'rxjs';
+import { TaskForm } from '../../../features/tasks/task-form/task-form';
 
 @Injectable({
     providedIn: 'root',
@@ -11,18 +12,31 @@ import { Observable } from 'rxjs';
 export class TaskService {
     private httpClient: HttpClient = inject(HttpClient);
     private apiUrl: String = `${environment.apiUrl}/tasks`;
-    private router: Router = inject(Router);
 
-    createTask(task: CreateTask): Observable<Task> {
+    public createTask(task: CreateTask): Observable<Task> {
         task.status ??= TaskStatus.PENDING;
         return this.httpClient.post<Task>(`${this.apiUrl}`, task);
     }
 
-    getTasks(): Observable<Array<Task>> {
+    public getTasks(): Observable<Array<Task>> {
         return this.httpClient.get<Array<Task>>(`${this.apiUrl}`);
     }
 
-    deleteTask(id: number) {
+    public getTask(id: number): Observable<Task> {
+        return this.httpClient.get<Task>(`${this.apiUrl}/${id}`);
+    }
+
+    public deleteTask(id: number) {
         return this.httpClient.delete(`${this.apiUrl}/${id}`);
     }
+
+    public modifyTask(task: CreateTask, id: number): Observable<Task> {
+        return this.httpClient.patch<Task>(`${this.apiUrl}/${id}`, task);
+    }
+
+    
+    // public setTaskModificationForm(id: number) {
+        
+    //     this.router.navigate(['/tasksForm']);
+    // }
 }

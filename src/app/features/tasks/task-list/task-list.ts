@@ -1,18 +1,20 @@
 import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Header } from '../../../shared/header/header';
 import { TaskService } from '../../../core/task/services/task-service';
 import { Task } from '../../../core/task/interfaces/task';
 import { Router } from '@angular/router';
+import { TaskStatusPipe } from '../../../shared/pipes/task-status-pipe';
+import { TaskFormService } from '../service/task-form-service';
 
 @Component({
     selector: 'app-task-list',
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, TaskStatusPipe],
     templateUrl: './task-list.html',
     styleUrl: './task-list.css',
 })
 export class TaskList {
     private taskService: TaskService = inject(TaskService);
+    private taskFormService = inject(TaskFormService);
     protected taskList = signal<Array<Task>>(new Array<Task>);
     private router: Router = inject(Router);
 
@@ -55,5 +57,10 @@ export class TaskList {
                 console.log(error);
             }
         });
+    }
+
+    protected setTaskModification(id: number) {
+        this.taskFormService.setTaskModificationForm(id);
+        this.router.navigate(['/tasksForm']);
     }
 }
