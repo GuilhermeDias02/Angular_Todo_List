@@ -14,7 +14,7 @@ export class TaskStatusColorPipe implements PipeTransform {
                 case TaskStatus.IN_PROGRESS:
                     return "bg-yellow-200 text-yellow-700";
                 case TaskStatus.DONE:
-                    return "bg-green-300 text-green-700 line-through";
+                    return "bg-green-300 text-green-700";
                 default:
                     return "bg-red-400 text-red-100";
             }
