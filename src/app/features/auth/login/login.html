@@ -12,6 +12,13 @@
                         autocomplete="username"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                 </div>
+                @if (username?.invalid && (username?.dirty || username?.touched)) {
+                <div class="text-red-600 text-sm mt-2">
+                    @if (username?.hasError('required')) {
+                    <span>Name is required.</span>
+                    }
+                </div>
+                }
             </div>
 
             <div>
@@ -23,6 +30,16 @@
                         autocomplete="current-password"
                         class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
                 </div>
+                @if (password?.invalid && (password?.dirty || password?.touched)) {
+                <div class="text-red-600 text-sm mt-2">
+                    @if (password?.hasError('required')) {
+                    <span>Password is required.</span>
+                    }
+                    @if (password?.hasError('minlength')) {
+                    <span>Password must be at least 6 characters long.</span>
+                    }
+                </div>
+                }
             </div>
 
             <div>
