@@ -1,0 +1,36 @@
+/* Animations et styles personnalisés */
+:host {
+    display: block;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 1rem 0;
+}
+
+/* Animation du spinner */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Amélioration du gradient du bouton retour */
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateX(-2px);
+}
+
+/* Amélioration de la carte */
+.rounded-2xl {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-2xl:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
