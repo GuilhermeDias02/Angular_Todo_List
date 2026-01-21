@@ -19,6 +19,6 @@ export enum TaskStatus {
 export interface CreateTask {
     title: string,
     description: string,
-    status?: TaskStatus, // Optional property (undefined will mean "PENDING" by default elsewhere)
+    status?: TaskStatus,
     targetUserId?: number
 }
