@@ -5,10 +5,11 @@ import { CreateTask, Task, TaskStatus } from '../../../core/task/interfaces/task
 import { Router } from '@angular/router';
 import { TaskStatusPipe } from '../../../shared/pipes/task-status-pipe';
 import { TaskFormService } from '../service/task-form-service';
+import { TaskStatusColorPipe } from '../../../shared/pipes/task-status-color-pipe';
 
 @Component({
     selector: 'app-task-list',
-    imports: [ReactiveFormsModule, TaskStatusPipe],
+    imports: [ReactiveFormsModule, TaskStatusPipe, TaskStatusColorPipe],
     templateUrl: './task-list.html',
     styleUrl: './task-list.css',
 })

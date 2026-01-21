@@ -27,7 +27,6 @@ export class TaskForm {
     protected taskForm = this.fb.nonNullable.group({
         title: ['', Validators.required],
         description: ['', Validators.required],
-        status: [TaskStatus.PENDING],
         targetUserId: [0],
     });
 

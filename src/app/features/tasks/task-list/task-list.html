@@ -25,7 +25,7 @@
                     <div class="flex items-center gap-2">
                         <h3 class="truncate text-base font-semibold text-indigo-600">{{task.title}}</h3>
                         <span
-                            class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800">{{task.status
+                            class="inline-flex items-center rounded-full {{task.status | taskStatusColor}} px-2.5 py-0.5 text-xs font-medium">{{task.status
                             | taskStatus}}</span>
                     </div>
                     <p class="mt-4 text-sm text-slate-600">{{task.description}}</p>
@@ -35,7 +35,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15.59 14.37A4.5 4.5 0 1 0 9 20.25h6.75M12 7.5v9" />
                         </svg>
-                        <span>Assignée à: {{task.user?.username}}</span>
+                        <span>{{task.user?.username ? `Assignée à: ${task.user?.username}` : "Non assignée"}}</span>
                     </div>
                 </div>
                 <div class="flex flex-col gap-1">
