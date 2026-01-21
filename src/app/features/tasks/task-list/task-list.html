@@ -19,7 +19,8 @@
 
     <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
         @for(task of this.taskList(); track task.id) {
-        <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+        <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md cursor-pointer hover:border-indigo-300"
+            (click)="viewTaskDetail(task.id)">
             <div class="flex items-start justify-between gap-3">
                 <div class="min-w-0 flex-1">
                     <div class="flex items-center gap-2">
@@ -39,7 +40,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-1">
-                    <button type="button" (click)="setTaskModification(task.id)"
+                    <button type="button" (click)="setTaskModification(task.id); $event.stopPropagation()"
                         class="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-indigo-600"
                         title="Modifier">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -48,7 +49,7 @@
                                 d="M16.862 3.487a2.625 2.625 0 1 1 3.712 3.712L8.25 19.524l-5.25 1.312 1.312-5.25L16.862 3.487z" />
                         </svg>
                     </button>
-                    <button type="button" (click)="deleteTask(task.id)"
+                    <button type="button" (click)="deleteTask(task.id); $event.stopPropagation()"
                         class="rounded-lg p-1.5 text-slate-400 transition hover:bg-red-50 hover:text-red-600"
                         title="Supprimer">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -58,7 +59,7 @@
                         </svg>
                     </button>
                     @if (isTaskPending(task)){
-                    <button (click)="startTask(task)" type="button"
+                    <button (click)="startTask(task); $event.stopPropagation()" type="button"
                         class="rounded-lg p-1.5 text-slate-400 transition hover:bg-amber-50 hover:text-amber-600"
                         title="Commencer la tâche">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -68,7 +69,7 @@
                         </svg>
                     </button>
                     } @else if (isTaskInProgress(task)) {
-                    <button type="button" (click)="markAsDone(task)"
+                    <button type="button" (click)="markAsDone(task); $event.stopPropagation()"
                         class="rounded-lg p-1.5 text-green-500 transition hover:bg-green-50 hover:text-green-600"
                         title="Terminé la tache">
                         <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

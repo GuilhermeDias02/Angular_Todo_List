@@ -5,6 +5,7 @@ import { TaskList } from './features/tasks/task-list/task-list';
 import { Home } from './features/home/home';
 import { authGuard } from './core/auth/guards/auth-guard';
 import { TaskForm } from './features/tasks/task-form/task-form';
+import { TaskDetail } from './features/tasks/task-detail/task-detail';
 
 export const routes: Routes = [
     {
@@ -28,5 +29,10 @@ export const routes: Routes = [
         path: "tasksForm",
         component: TaskForm,
         canActivate: [authGuard]
-    }
+    },
+    {
+  path: "tasks/:id",
+  component: TaskDetail,
+  canActivate: [authGuard]
+}
 ];

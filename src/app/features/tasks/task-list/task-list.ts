@@ -108,4 +108,8 @@ export class TaskList {
             }
         })
     }
+
+    protected viewTaskDetail(id: number) {
+    this.router.navigate(['/tasks', id]);
+}
 }
