@@ -1,0 +1,17 @@
+<form [formGroup]="CommentForm" (ngSubmit)="onSubmit()" class="space-y-6 mb-10 bg-blue-900">
+  <div class="space-y-4">
+    <input
+      formControlName="message"
+      placeholder="Message"
+      class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 outline-white/10 placeholder:text-gray-500 focus:outline-indigo-500 sm:text-sm"
+    />
+  </div>
+  <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-400">
+    Envoyer
+  </button>
+</form>
+@for (comment of commentService.Comments(); track comment.id) {
+  <p>{{comment.message}}</p>
+  <button (click)="commentService.deleteComment(comment.id)">Supprimer</button>
+}
+
