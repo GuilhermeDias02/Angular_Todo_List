@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Commentslist } from '../comments/commentslist';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [
+    Commentslist
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
