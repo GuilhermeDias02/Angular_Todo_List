@@ -14,7 +14,7 @@ export class TaskStatusPipe implements PipeTransform {
                 case TaskStatus.IN_PROGRESS:
                     return "En cours";
                 case TaskStatus.DONE:
-                    return "Finie"
+                    return "Finie";
                 default:
                     return "";
             }
