@@ -5,29 +5,31 @@ import { TaskService } from '../../../core/task/services/task-service';
 import { Router } from '@angular/router';
 import { TaskStatusPipe } from '../../../shared/pipes/task-status-pipe';
 import { TaskStatusColorPipe } from '../../../shared/pipes/task-status-color-pipe';
+import { Commentslist } from '../../comments/commentslist';
+
 
 @Component({
     selector: 'app-task-detail',
-    imports: [DatePipe, TaskStatusPipe, TaskStatusColorPipe],
+    imports: [DatePipe, TaskStatusPipe, TaskStatusColorPipe, Commentslist],
     templateUrl: './task-detail.html',
     styleUrl: './task-detail.css',
 })
 export class TaskDetail implements OnInit {
     @Input() id!: number;
-    
+
     private taskService = inject(TaskService);
     private router = inject(Router);
-    
+
     protected task = signal<Task | null>(null);
     protected isLoading = signal(true);
     protected errorMessage = signal<string | null>(null);
-    
+
     ngOnInit() {
         if (this.id) {
             this.fetchTask();
         }
     }
-    
+
     private fetchTask() {
         this.taskService.getTask(this.id).subscribe({
             next: (task: Task) => {
@@ -41,19 +43,19 @@ export class TaskDetail implements OnInit {
             }
         });
     }
-    
+
     protected goBack() {
         this.router.navigate(['/tasks']);
     }
-    
+
     protected isTaskPending(status: TaskStatus): boolean {
         return status === TaskStatus.PENDING;
     }
-    
+
     protected isTaskInProgress(status: TaskStatus): boolean {
         return status === TaskStatus.IN_PROGRESS;
     }
-    
+
     protected isTaskDone(status: TaskStatus): boolean {
         return status === TaskStatus.DONE;
     }
