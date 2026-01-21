@@ -20,6 +20,13 @@
                 class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 [value]="this.taskFromService.taskToModify() ? this.taskFromService.taskToModify()?.title : ''"
                 required />
+            @if (title?.invalid && (title?.dirty || title?.touched)) {
+            <div class="text-red-600 text-sm mt-2">
+                @if (title?.hasError('required')) {
+                <span>Title is required.</span>
+                }
+            </div>
+            }
         </div>
 
         <!-- Description -->
@@ -30,6 +37,13 @@
                 class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                 [ngModel]="this.taskFromService.taskToModify() ? this.taskFromService.taskToModify()?.description : ''"
                 (ngModelChange)="taskForm.get('description')?.setValue($event)"></textarea>
+            @if (description?.invalid && (description?.dirty || description?.touched)) {
+            <div class="text-red-600 text-sm mt-2">
+                @if (description?.hasError('required')) {
+                <span>Description is required.</span>
+                }
+            </div>
+            }
         </div>
 
         @if (this.authService.isAdmin() && this.users()) {

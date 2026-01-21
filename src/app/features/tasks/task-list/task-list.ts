@@ -6,10 +6,12 @@ import { Router } from '@angular/router';
 import { TaskStatusPipe } from '../../../shared/pipes/task-status-pipe';
 import { TaskFormService } from '../service/task-form-service';
 import { TaskStatusColorPipe } from '../../../shared/pipes/task-status-color-pipe';
+import { DatePipe } from '@angular/common';
+import { TaskTitleStrikePipe } from '../../../shared/pipes/task-title-strike-pipe';
 
 @Component({
     selector: 'app-task-list',
-    imports: [ReactiveFormsModule, TaskStatusPipe, TaskStatusColorPipe],
+    imports: [ReactiveFormsModule, TaskStatusPipe, TaskStatusColorPipe, DatePipe, TaskTitleStrikePipe],
     templateUrl: './task-list.html',
     styleUrl: './task-list.css',
 })

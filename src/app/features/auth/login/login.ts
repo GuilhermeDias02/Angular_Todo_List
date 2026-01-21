@@ -23,6 +23,14 @@ export class Login {
         password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
+    get username() {
+        return this.loginForm.get('username');
+    }
+
+    get password() {
+        return this.loginForm.get('password');
+    }
+
     protected login() {
         if (this.loginForm.invalid) {
             this.errorMessage.set('Please fill in all fields.');
