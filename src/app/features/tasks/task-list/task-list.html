@@ -5,26 +5,50 @@
             <p class="mt-1 text-sm text-slate-500">Chaque tâche affiche uniquement son titre, sa description et la
                 personne assignée.</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap gap-2 items-center">
             <button type="button" (click)="createTask()"
-                class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+                class="inline-flex whitespace-nowrap items-center gap-2 rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-[0]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="1.5" class="h-4 w-4">
+                    stroke-width="1.5" class="h-4 w-4 flex-shrink-0">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                Nouvelle tâche
+                <span class="truncate">Nouvelle tâche</span>
+            </button>
+            <button type="button" (click)="filterTasks(1)"
+                class="inline-flex whitespace-nowrap items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-[0]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" class="h-4 w-4 flex-shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="truncate">Toutes</span>
+            </button>
+            <button type="button" (click)="filterTasks(2)"
+                class="inline-flex whitespace-nowrap items-center gap-2 rounded-lg bg-yellow-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-[0]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" class="h-4 w-4 flex-shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="truncate">En cours</span>
+            </button>
+            <button type="button" (click)="filterTasks(3)"
+                class="inline-flex whitespace-nowrap items-center gap-2 rounded-lg bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-[0]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" class="h-4 w-4 flex-shrink-0">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span class="truncate">Finies</span>
             </button>
         </div>
     </div>
 
     <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        @for(task of this.taskList(); track task.id) {
+        @for(task of this.taskListFiltered(); track task.id) {
         <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md cursor-pointer hover:border-indigo-300"
             (click)="viewTaskDetail(task.id)">
             <div class="flex items-start justify-between gap-3">
                 <div class="min-w-0 flex-1">
                     <div class="flex items-center gap-2">
-                        <h3 class="truncate text-base font-semibold text-indigo-600">{{task.title}}</h3>
+                        <h3 class="truncate text-base font-semibold text-indigo-600 {{task.status | taskTitleStrike}}">{{task.title}}</h3>
                         <span
                             class="inline-flex items-center rounded-full {{task.status | taskStatusColor}} px-2.5 py-0.5 text-xs font-medium">{{task.status
                             | taskStatus}}</span>
@@ -38,6 +62,8 @@
                         </svg>
                         <span>{{task.user?.username ? `Assignée à: ${task.user?.username}` : "Non assignée"}}</span>
                     </div>
+                <p class="mt-1 text-xs text-slate-400">Créée le : {{task.createdAt | date:'dd/MM/yyyy HH:mm'}}</p>
+                <p class="text-xs text-slate-400">Modifiée le : {{task.updatedAt | date:'dd/MM/yyyy HH:mm'}}</p>
                 </div>
                 <div class="flex flex-col gap-1">
                     <button type="button" (click)="setTaskModification(task.id); $event.stopPropagation()"

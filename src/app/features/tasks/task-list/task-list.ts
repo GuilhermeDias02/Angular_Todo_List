@@ -6,10 +6,12 @@ import { Router } from '@angular/router';
 import { TaskStatusPipe } from '../../../shared/pipes/task-status-pipe';
 import { TaskFormService } from '../service/task-form-service';
 import { TaskStatusColorPipe } from '../../../shared/pipes/task-status-color-pipe';
+import { DatePipe } from '@angular/common';
+import { TaskTitleStrikePipe } from '../../../shared/pipes/task-title-strike-pipe';
 
 @Component({
     selector: 'app-task-list',
-    imports: [ReactiveFormsModule, TaskStatusPipe, TaskStatusColorPipe],
+    imports: [ReactiveFormsModule, TaskStatusPipe, TaskStatusColorPipe, DatePipe, TaskTitleStrikePipe],
     templateUrl: './task-list.html',
     styleUrl: './task-list.css',
 })
@@ -17,6 +19,8 @@ export class TaskList {
     private taskService: TaskService = inject(TaskService);
     private taskFormService = inject(TaskFormService);
     protected taskList = signal<Array<Task>>(new Array<Task>);
+    protected taskListFiltered = signal<Array<Task>>(new Array<Task>);
+    protected isTaskListFiltered = signal<boolean>(false);
     private router: Router = inject(Router);
 
     constructor() {
@@ -39,7 +43,11 @@ export class TaskList {
     }
 
     private updateTasks(tasks: Array<Task>): void {
-        this.taskList.set(tasks);
+        if (!this.isTaskListFiltered()) {
+            //ne remplacer toutes les tâches que quand on est pas en affichage filtré
+            this.taskList.set(tasks);
+        }
+        this.taskListFiltered.set(tasks);
     }
 
     protected createTask() {
@@ -110,6 +118,28 @@ export class TaskList {
     }
 
     protected viewTaskDetail(id: number) {
-    this.router.navigate(['/tasks', id]);
-}
+        this.router.navigate(['/tasks', id]);
+    }
+
+    protected filterTasks(type: number) {
+        switch (type) {
+            case 1:
+                //toutes
+                this.isTaskListFiltered.set(false);
+                this.updateTasks(this.taskList());// récupérer les tâches originales sans les refetch
+                break;
+            case 2:
+                //à faire
+                this.isTaskListFiltered.set(true);
+                this.updateTasks(this.taskList().filter(task => task.status === TaskStatus.IN_PROGRESS));
+                break;
+
+            case 3:
+                //terminées
+                this.isTaskListFiltered.set(true);
+                this.updateTasks(this.taskList().filter(task => task.status === TaskStatus.DONE));
+                break;
+
+        }
+    }
 }

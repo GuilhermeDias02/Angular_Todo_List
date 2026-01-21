@@ -24,6 +24,14 @@ export class Register {
         password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
+    get username() {
+        return this.registerForm.get('username');
+    }
+
+    get password() {
+        return this.registerForm.get('password');
+    }
+
     protected register() {
         if (this.registerForm.invalid) {
             this.errorMessage.set('Please fill in all fields.');

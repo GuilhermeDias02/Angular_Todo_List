@@ -23,12 +23,19 @@ export class TaskForm {
     protected router: Router = inject(Router);
     protected users = signal(new Array<User>);
 
-
     protected taskForm = this.fb.nonNullable.group({
         title: ['', Validators.required],
         description: ['', Validators.required],
         targetUserId: [0],
     });
+
+    get title() {
+        return this.taskForm.get('title');
+    }
+
+    get description() {
+        return this.taskForm.get('description');
+    }
 
     ngOnInit() {
         this.userService.getUsers().subscribe({
