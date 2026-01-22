@@ -5,6 +5,16 @@
             Task Manager 🚀
         </div>
 
+        <!-- Center buttons -->
+        <div class="flex-1 flex justify-center gap-4">
+            <a routerLink="/tasks" class="rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                Tasks
+            </a>
+            <a routerLink="/dashboard" class="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                Dashboard
+            </a>
+        </div>
+
         @if (authService.currentUser()) {
         <!-- Right side -->
         <div class="flex items-center gap-8">
