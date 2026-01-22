@@ -6,6 +6,18 @@
         </div>
 
         @if (authService.currentUser()) {
+        <!-- Center buttons -->
+                <div class="flex gap-2">
+            <button type="button" (click)="redirectionToTasks()"
+                class="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Tasks
+            </button>
+            <button type="button" (click)="redirectionToDashboard()"
+                class="rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                Dashboard
+            </button>
+        </div>
+
         <!-- Right side -->
         <div class="flex items-center gap-8">
             <span class="text-l text-white">Bonjour {{authService.currentUser()?.username}}</span>

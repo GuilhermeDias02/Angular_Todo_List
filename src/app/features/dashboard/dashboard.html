@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Dashboard</h2>
+  <p class="subtitle">Bienvenue sur votre tableau de bord.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Total tâches</h3>
+      <p class="kpi">{{ total$ | async }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Tâches DONE</h3>
+      <p class="kpi">{{ done$ | async }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Mes tâches</h3>
+      <p class="kpi">{{ mine$ | async }}</p>
+    </div>
+  </div>
+
+  <div class="progress-block">
+    <div class="progress-title">
+      Progression : <b>{{ progress$ | async }}%</b>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="(progress$ | async) ?? 0"></div>
+    </div>
+  </div>
+</div>

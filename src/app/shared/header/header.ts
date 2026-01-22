@@ -10,9 +10,21 @@ import { AuthService } from '../../core/auth/services/auth-service';
     styleUrl: './header.css',
 })
 export class Header {
+    private router: Router = inject(Router);
+
     protected authService: AuthService = inject(AuthService);
 
     protected logout() {
         this.authService.logout();
+    }
+
+    protected redirectionToTasks() {
+       
+        this.router.navigateByUrl('/tasks');
+    }
+
+    protected redirectionToDashboard() {
+       
+        this.router.navigateByUrl('/dashboard');
     }
 }
